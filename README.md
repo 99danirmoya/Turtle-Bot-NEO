@@ -16,7 +16,7 @@
 ___
 
 ## Modo de funcionamiento
-1. Se selecciona entre los modos manual o sigue-líneas por medio del switch ON-OFF-ON
+1. Se selecciona entre los modos manual o sigue-líneas por medio del switch ON1-OFF-ON2
 1. Se enciende el robot (conectándolo a la alimentación o dándole al botón de reset posteriormente)
 1. Si se enciende en el modo sigue-líneas, simplemente colocar entre las líneas a seguir y el proceso será automático
    - ALTERNATIVAMENTE: Si se enciende en el modo manual, se deben calibrar los sensores de pre-colisión durante los intervalos de 2500ms para cada uno, indicados por el LED L
