@@ -29,6 +29,8 @@ ___
 | Componente | Unidades |
 | ------------- | ------------- |
 | Arduino UNO | 1 |
+| Protoboard | 1 |
+| Chasis | 1 |
 | Joystick | 1 |
 | Switch ON1-OFF-ON2 | 1 |
 | Fotoresistencia | 2 |
@@ -38,5 +40,7 @@ ___
 | Piezo | 1 |
 | Sensor IR | 2 |
 | Servo de rotación continua | 2 |
+| Ruedas | 2 |
+| Jumpers | Los que hagan falta |
 
 </div>
