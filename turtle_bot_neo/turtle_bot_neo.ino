@@ -72,7 +72,7 @@ void setup(){
   pinMode(pinSwOn2, INPUT_PULLUP);
 
   // Setup del modo manual -----------------------------------------------------------------------------------------------------------------------------------
-  if(pinSwOn1 == HIGH && pinSwOn2 == LOW){
+  if(digitalRead(pinSwOn1) == HIGH && digitalRead(pinSwOn2 == LOW)){
     // Establecer el modo I/O de cada uno de los periféricos del modo manual ---------------------------------------------------------------------------------
     pinMode(joySwitchPin, INPUT_PULLUP);                                                           // INPUT_PULLUP es un tipo de declaración de input que hace uso de una resistencia interna de tipo pull-up del Arduino UNO
     pinMode(ledPin, OUTPUT);                                                                       // El LED es una salida (muestra estado de la calibración)
@@ -88,7 +88,7 @@ void setup(){
   }
 
   // Setup del modo sigue líneas -----------------------------------------------------------------------------------------------------------------------------
-  if(pinSwOn1 == LOW && pinSwOn2 == HIGH){
+  if(digitalRead(pinSwOn1 == LOW) && digitalRead(pinSwOn2 == HIGH)){
     // Establecer el modo I/O de cada uno de los periféricos del modo sigue líneas ---------------------------------------------------------------------------
     pinMode(pinIRDerecho, INPUT);
     pinMode(pinIRIzquierdo, INPUT);
