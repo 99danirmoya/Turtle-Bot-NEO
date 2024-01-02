@@ -44,3 +44,23 @@ ___
 | Jumpers | Los que hagan falta |
 
 </div>
+
+<div align="justify">
+
+___
+
+## Modo de implementación
+
+Toda la explicación del código de Arduino viene dada en el propio código en formato de comentarios al lado de cada línea
+
+___
+___
+
+## Ejemplo de montaje
+
+</div>
+
+<div align="center">
+  <img src="https://github.com/99danirmoya/turtle-bot-neo/blob/main/pics/t725.png" width="750"  style="margin: 10px;"/>
+</div>
+<br/>
