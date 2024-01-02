@@ -88,7 +88,7 @@ void setup(){
   }
 
   // Setup del modo sigue líneas -----------------------------------------------------------------------------------------------------------------------------
-  if(digitalRead(pinSwOn1 == LOW) && digitalRead(pinSwOn2 == HIGH)){
+  else if(digitalRead(pinSwOn1 == LOW) && digitalRead(pinSwOn2 == HIGH)){
     // Establecer el modo I/O de cada uno de los periféricos del modo sigue líneas ---------------------------------------------------------------------------
     pinMode(pinIRDerecho, INPUT);
     pinMode(pinIRIzquierdo, INPUT);
@@ -112,7 +112,7 @@ void loop(){
     precolision(pinFotoTras, 10);                                                                  // Si voy a chocar yendo hacia atrás, el offSet es positivo para ir hacia alante
     precolision(pinFotoDela, -10);                                                                 // Si voy a chocar yendo hacia adelante, el offSet es negativo para ir hacia atrás
   }
-  if(!modoManual && modoSiguelineas){
+  else if(!modoManual && modoSiguelineas){
     controlSiguelineas();
   }
 
@@ -128,19 +128,19 @@ void controlSiguelineas(){
   }
 
   // Código para girar a la izquierda si el sensor derecho detecta la línea negra ----------------------------------------------------------------------------
-  if((digitalRead(pinIRDerecho) == 1) && (digitalRead(pinIRIzquierdo) == 0)){
+  else if((digitalRead(pinIRDerecho) == 1) && (digitalRead(pinIRIzquierdo) == 0)){
     leftServo.write(135);
     rightServo.write(135);
   }
 
   // Código para girar a la derecha si el sensor izquierdo detecta la línea negra ----------------------------------------------------------------------------
-  if((digitalRead(pinIRDerecho) == 0) && (digitalRead(pinIRIzquierdo) == 0)){
+  else if((digitalRead(pinIRDerecho) == 0) && (digitalRead(pinIRIzquierdo) == 0)){
     leftServo.write(45);
     rightServo.write(45);
   }
 
   // Código para detenerse si ambos sensores detectan la línea negra -----------------------------------------------------------------------------------------
-  if((digitalRead(pinIRDerecho) == 0) && (digitalRead(pinIRIzquierdo) == 0)){
+  else{
     leftServo.write(45);
     rightServo.write(135);
   }  
