@@ -1,9 +1,13 @@
 # <p align="center"> Turtle-Bot NEO </p>
 
-<p align="justify"> Robot con dos ruedas controladas por dos servos de rotación continua que cuenta con dos modos de funcionamiento: manual con joystick y sigue-líneas  </p>
+<p align="justify"> Robot con dos ruedas controladas por dos servos de rotación continua que cuenta con dos modos de funcionamiento: manual con joystick y sigue-líneas. Hacer clic en el botón morado de la imagen para acceder a la simulación de TinkerCAD. </p>
 
 <div align="center">
   <img src="https://github.com/99danirmoya/turtle-bot-neo/blob/main/pics/t725.png" width="750"  style="margin: 10px;"/>
+  
+  <em>Circuito del Turtle-Bot NEO</em>
+
+  [![Static Badge](https://img.shields.io/badge/TINKER_THIS!-8A2BE2?logo=autodesk)](https://www.tinkercad.com/things/kZLjRCSkkIt-turtle-bot-neo)
 </div>
 <br/>
 
@@ -61,6 +65,8 @@ ___
 
 <div align="center">
   <img src="https://github.com/99danirmoya/turtle-bot-neo/blob/main/pics/photo_5809662950196232262_y.jpg" width="750"  style="margin: 10px;"/>
+
+  <em>Muestra de montaje y cableado</em>
 </div>
 <br/>
 
