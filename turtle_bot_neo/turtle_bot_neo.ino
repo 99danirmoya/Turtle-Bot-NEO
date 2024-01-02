@@ -5,14 +5,14 @@ De todas formas, existen tutoriales de cómo modificar los modelos comunes para 
 *********************************************************************************************************************************************************** */
 
 // Inclusión de librerías ------------------------------------------------------------------------------------------------------------------------------------
-#include <Servo.h>                                                                                // Servo.h es una librería dedicada al control de servos incluída en Arduino IDE
+#include <Servo.h>                                                                                 // Servo.h es una librería dedicada al control de servos incluída en Arduino IDE
 
 // Definición de los pines de los servos ---------------------------------------------------------------------------------------------------------------------
-#define leftServoPin 9                                                                            // Pin del servo izquierdo
-#define rightServoPin 10                                                                          // Pin del servo derecho
+#define leftServoPin 9                                                                             // Pin del servo izquierdo
+#define rightServoPin 10                                                                           // Pin del servo derecho
 
 // Definición del switch del joystick ------------------------------------------------------------------------------------------------------------------------
-#define joySwitchPin 11                                                                           // Pin para el click digital del joystick
+#define joySwitchPin 11                                                                            // Pin para el click digital del joystick
 
 // Definición del pin del buzzer -----------------------------------------------------------------------------------------------------------------------------
 #define buzzerPin 8
@@ -20,22 +20,22 @@ De todas formas, existen tutoriales de cómo modificar los modelos comunes para 
 // Definición de los pines de los LEDs -----------------------------------------------------------------------------------------------------------------------
 #define ledDerecho 7
 #define ledIzquierdo 4
-#define ledPin 13                                                                                 // Pin del Built-in LED
+#define ledPin 13                                                                                  // Pin del Built-in LED
 
 // Definición del pin de la resistencia fotosensible ---------------------------------------------------------------------------------------------------------
-#define pinFotoTras A2                                                                            // Pin A2 para la resistencia fotosensible trasera
-#define pinFotoDela A3                                                                            // Pin A3 para la resistencia fotosensible delantera
+#define pinFotoTras A2                                                                             // Pin A2 para la resistencia fotosensible trasera
+#define pinFotoDela A3                                                                             // Pin A3 para la resistencia fotosensible delantera
 
 // Definición de los pines del switch ON-OFF-ON --------------------------------------------------------------------------------------------------------------
-#define pinSwOn1 2                                                                                // Pin de la primera posición On del switch
-#define pinSwOn2 12                                                                               // Pin de la segunda posición On del switch
+#define pinSwOn1 2                                                                                 // Pin de la primera posición On del switch
+#define pinSwOn2 12                                                                                // Pin de la segunda posición On del switch
 
 // Definición de los pines de los sensores de infrarrojos ----------------------------------------------------------------------------------------------------
 #define pinIRDerecho 5
 #define pinIRIzquierdo 6
 
 // Definición del intervalo para el efecto intermitente ------------------------------------------------------------------------------------------------------
-#define intervaloIntermitente 750                                                                 // Intervalo en milisegundos
+#define intervaloIntermitente 750                                                                  // Intervalo en milisegundos
 #define intervaloPrecolision 1500
 
 // Crea los objetos de los dos servos con sus constructores --------------------------------------------------------------------------------------------------
@@ -47,9 +47,9 @@ uint32_t previousMillisDerecho = 0;
 uint32_t previousMillisIzquierdo = 0;
 
 // Variables para el funcionamiento de la resistencia fotosensible -------------------------------------------------------------------------------------------
-int valorSensor;                                                                                  // Variable que almacena los valores de la resistencia fotosensible
-int sensorLow = 1023;                                                                             // Valor bajo del sensor (1023 porque funciona al revés al tratarse de una resistencia)
-int sensorHigh = 0;                                                                               // Valor alto del sensor (0, por lo mismo)
+int valorSensor;                                                                                   // Variable que almacena los valores de la resistencia fotosensible
+int sensorLow = 1023;                                                                              // Valor bajo del sensor (1023 porque funciona al revés al tratarse de una resistencia)
+int sensorHigh = 0;                                                                                // Valor alto del sensor (0, por lo mismo)
 
 // Toggles para la activación entre el modo manual y el modo sigue líneas ------------------------------------------------------------------------------------
 bool modoManual = false;
@@ -68,8 +68,8 @@ void setup(){
   // Establecer el modo I/O de cada uno de los periféricos comunes a ambos modos -----------------------------------------------------------------------------
   pinMode(ledDerecho, OUTPUT);
   pinMode(ledIzquierdo, OUTPUT);
-  pinMode(pinSwOn1, INPUT);
-  pinMode(pinSwOn2, INPUT);
+  pinMode(pinSwOn1, INPUT_PULLUP);
+  pinMode(pinSwOn2, INPUT_PULLUP);
 
   // Setup del modo manual -----------------------------------------------------------------------------------------------------------------------------------
   if(pinSwOn1 == HIGH && pinSwOn2 == LOW){
