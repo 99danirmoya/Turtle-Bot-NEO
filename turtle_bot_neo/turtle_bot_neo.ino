@@ -141,8 +141,8 @@ void controlSiguelineas(){
 
   // Código para detenerse si ambos sensores detectan la línea negra -----------------------------------------------------------------------------------------
   else{
-    leftServo.write(45);
-    rightServo.write(135);
+    leftServo.write(90);
+    rightServo.write(90);
   }  
 }
 
