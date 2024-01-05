@@ -1,7 +1,7 @@
 /* ***********************************************************************************************************************************************************
-ESTE SKETCH FUNCIONA ÚNICAMENTE CON SERVOS MODIFICADOS PARA ROTAR DE FORMA CONTINUA
-Los servos comúnmente están limitados a ángulos de entre 0 a 180 grados, pero hay modelos, como el TowerPro MG996R que giran sin detenerse.
-De todas formas, existen tutoriales de cómo modificar los modelos comunes para que funcionen de esta forma
+ESTE SKETCH FUNCIONA ÚNICAMENTE CON SERVOS DE ROTACIÓN CONTINUA O MODIFICADOS PARA ROTAR DE FORMA CONTINUA.
+Los servos, comúnmente, están limitados a ángulos de entre 0 a 180 grados, pero hay modelos, como el TowerPro MG996R, que giran sin detenerse.
+De todas formas, existen tutoriales de cómo modificar los modelos comunes para que funcionen de esta forma.
 *********************************************************************************************************************************************************** */
 
 // Inclusión de librerías ------------------------------------------------------------------------------------------------------------------------------------
@@ -257,7 +257,7 @@ void controlManual() {
   rightServo.write(90 + servoYPosition - servoXPosition);                                          // 90 - 0 - 45 = 45 -> Hacia atrás PORQUE ESTÁ PUESTO "ESPEJO" RESPECTO DEL OTRO EN EL ROBOT
 }
 
-/* ===========================================================================================================================================================
+/* ***********************************************************************************************************************************************************
 
 | -------------------------------------------------------------------------------------------------------- |
 |                                           Tabla de movimientos                                           |
@@ -270,6 +270,7 @@ void controlManual() {
 |   511     |   1023    |       0        |       45       |       45        |        45        |  DERECHA  |
 | --------- | --------- | -------------- | -------------- | --------------- | ---------------- | --------- |
 
-Teniendo en cuenta que el punto neutro es ambos a 90, ambos a 45 no significa moverse hacia adelante y, ambos a 135, tampoco hacia atrás. Por elcontrario,
+Teniendo en cuenta que el punto neutro es ambos a 90, ambos a 45 no significa moverse hacia adelante y, ambos a 135, tampoco hacia atrás. Por el contrario,
 estos dos casos representarían, respectivamente, el giro a derechas y el giro a izquierdas.
-El hecho de que, por ejemplo, hacia adelante sea LEFT a 45 y RIGHT a 135 es porque los motores están cambiados de sentido cuando se montan en el chasis */
+El hecho de que, por ejemplo, hacia adelante sea LEFT a 45 y RIGHT a 135 es porque los motores están cambiados de sentido cuando se montan en el chasis.
+*********************************************************************************************************************************************************** */
