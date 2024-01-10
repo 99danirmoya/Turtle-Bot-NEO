@@ -1,42 +1,45 @@
 /* ***********************************************************************************************************************************************************
-ESTE SKETCH FUNCIONA ÚNICAMENTE CON SERVOS DE ROTACIÓN CONTINUA O MODIFICADOS PARA ROTAR DE FORMA CONTINUA.
-Los servos, comúnmente, están limitados a ángulos de entre 0 a 180 grados, pero hay modelos, como el TowerPro MG996R, que giran sin detenerse.
-De todas formas, existen tutoriales de cómo modificar los modelos comunes para que funcionen de esta forma.
+ESTE SKETCH FUNCIONA ÚNICAMENTE CON SERVOS MODIFICADOS PARA ROTAR DE FORMA CONTINUA
+Los servos comúnmente están limitados a ángulos de entre 0 a 180 grados, pero hay modelos, como el TowerPro MG996R que giran sin detenerse.
+De todas formas, existen tutoriales de cómo modificar los modelos comunes para que funcionen de esta forma
 *********************************************************************************************************************************************************** */
 
 // Inclusión de librerías ------------------------------------------------------------------------------------------------------------------------------------
 #include <Servo.h>                                                                                 // Servo.h es una librería dedicada al control de servos incluída en Arduino IDE
 
+// Definición del toggle para activar/desactivar el serial monitor -------------------------------------------------------------------------------------------
+#define ENABLE_DEBUG          1
+
 // Definición de los pines de los servos ---------------------------------------------------------------------------------------------------------------------
-#define leftServoPin 9                                                                             // Pin del servo izquierdo
-#define rightServoPin 10                                                                           // Pin del servo derecho
+#define leftServoPin          9                                                                    // Pin del servo izquierdo
+#define rightServoPin         10                                                                   // Pin del servo derecho
 
 // Definición del switch del joystick ------------------------------------------------------------------------------------------------------------------------
-#define joySwitchPin 11                                                                            // Pin para el click digital del joystick
+#define joySwitchPin          11                                                                   // Pin para el click digital del joystick
 
 // Definición del pin del buzzer -----------------------------------------------------------------------------------------------------------------------------
-#define buzzerPin 8
+#define buzzerPin             8
 
 // Definición de los pines de los LEDs -----------------------------------------------------------------------------------------------------------------------
-#define ledDerecho 7
-#define ledIzquierdo 4
-#define ledPin 13                                                                                  // Pin del Built-in LED
+#define ledDerecho            7
+#define ledIzquierdo          4
+#define ledPin                13                                                                   // Pin del Built-in LED
 
 // Definición del pin de la resistencia fotosensible ---------------------------------------------------------------------------------------------------------
-#define pinFotoTras A2                                                                             // Pin A2 para la resistencia fotosensible trasera
-#define pinFotoDela A3                                                                             // Pin A3 para la resistencia fotosensible delantera
+#define pinFotoTras           A2                                                                   // Pin A2 para la resistencia fotosensible trasera
+#define pinFotoDela           A3                                                                   // Pin A3 para la resistencia fotosensible delantera
 
 // Definición de los pines del switch ON-OFF-ON --------------------------------------------------------------------------------------------------------------
-#define pinSwOn1 2                                                                                 // Pin de la primera posición On del switch
-#define pinSwOn2 12                                                                                // Pin de la segunda posición On del switch
+#define pinSwOn1              2                                                                    // Pin de la primera posición On del switch
+#define pinSwOn2              12                                                                   // Pin de la segunda posición On del switch
 
 // Definición de los pines de los sensores de infrarrojos ----------------------------------------------------------------------------------------------------
-#define pinIRDerecho 5
-#define pinIRIzquierdo 6
+#define pinIRDerecho          5
+#define pinIRIzquierdo        6
 
 // Definición del intervalo para el efecto intermitente ------------------------------------------------------------------------------------------------------
 #define intervaloIntermitente 750                                                                  // Intervalo en milisegundos
-#define intervaloPrecolision 1500
+#define intervaloPrecolision  1500
 
 // Crea los objetos de los dos servos con sus constructores --------------------------------------------------------------------------------------------------
 Servo leftServo;
@@ -57,13 +60,19 @@ bool modoSiguelineas = false;
 
 // Función 'setup()' =========================================================================================================================================
 void setup(){
+  debug_code();
+
+  Serial.println("Turtle-Bot NEO inicializando...");
+
   // Función 'servo.attach(uint8_t pin)' para asignar los pines a las variables donde escribir los cambios de sentido y velocidad ----------------------------
   leftServo.attach(leftServoPin);
   rightServo.attach(rightServoPin);
 
   // Inicializar los servos en su posición neutra (90 grados) con 'servo.write(int angle)' -------------------------------------------------------------------
+  Serial.println("Calibrando servos...");
   leftServo.write(90);                                                                             // En 'servo.write()' se pueden escribir valores del rango 0 - 180 grados
   rightServo.write(90);
+  Serial.println("¡Servos calibrados!");
 
   // Establecer el modo I/O de cada uno de los periféricos comunes a ambos modos -----------------------------------------------------------------------------
   pinMode(ledDerecho, OUTPUT);
@@ -71,16 +80,27 @@ void setup(){
   pinMode(pinSwOn1, INPUT_PULLUP);
   pinMode(pinSwOn2, INPUT_PULLUP);
 
+  // Esperar hasta seleccionar una posición del switch ON1-OFF-ON2 en caso de que quede en la posición OFF ---------------------------------------------------
+  while(digitalRead(pinSwOn1) == !LOW && digitalRead(pinSwOn2) == !LOW){                           // Mientras ambas posiciones estén inactivas, me quedo aquí leyendo el switch cada 100ms
+    delay(100);                                                                                    // Sampling delay
+  }
+
   // Setup del modo manual -----------------------------------------------------------------------------------------------------------------------------------
-  if(digitalRead(pinSwOn1) == !HIGH && digitalRead(pinSwOn2 == !LOW)){                             // Se ponen negados ya que el switch ON1-OFF-ON2 está configurado como 'INPUT_PULLUP', por lo que sigue lógica inversa
+  if(digitalRead(pinSwOn1) == !HIGH && digitalRead(pinSwOn2 == !LOW)){
+    Serial.println("¡Modo manual seleccionado!");
+
     // Establecer el modo I/O de cada uno de los periféricos del modo manual ---------------------------------------------------------------------------------
     pinMode(joySwitchPin, INPUT_PULLUP);                                                           // INPUT_PULLUP es un tipo de declaración de input que hace uso de una resistencia interna de tipo pull-up del Arduino UNO
     pinMode(ledPin, OUTPUT);                                                                       // El LED es una salida (muestra estado de la calibración)
 
     // Calibrar los sensores de precolisión dadas las condiciones lumínicas del lugar ------------------------------------------------------------------------
+    Serial.println("¡Calibra el sensor de pre-colision trasero");
     calibrarPrecolision(pinFotoTras);
+    Serial.println("¡Sensor de pre-colision trasero calibrado!");
     delay(100);                                                                                    // delay para ver el cambio de qué sensor se está calibrando
+    Serial.println("¡Calibra el sensor de pre-colision delantero!");
     calibrarPrecolision(pinFotoDela);
+    Serial.println("¡Sensores calibrados!");
 
     // Activamos el toggle manual y desactivamos el sigue líneas ---------------------------------------------------------------------------------------------
     modoManual = true;
@@ -89,6 +109,8 @@ void setup(){
 
   // Setup del modo sigue líneas -----------------------------------------------------------------------------------------------------------------------------
   else if(digitalRead(pinSwOn1 == !LOW) && digitalRead(pinSwOn2 == !HIGH)){
+    Serial.println("¡Modo sigue-líneas seleccionado!");
+
     // Establecer el modo I/O de cada uno de los periféricos del modo sigue líneas ---------------------------------------------------------------------------
     pinMode(pinIRDerecho, INPUT);
     pinMode(pinIRIzquierdo, INPUT);
@@ -99,6 +121,8 @@ void setup(){
   }
 
   // Se emite el sonido de inicio, dando a entender que el setup se ha completado ----------------------------------------------------------------------------
+  Serial.println("¡Turtle-Bot NEO INICIALIZADO CON EXITO!");
+  Serial.println();
   sonidoIncio();
 }
 
@@ -116,7 +140,15 @@ void loop(){
     controlSiguelineas();
   }
 
+  Serial.println();                                                                                // Insertar un espacio en el monitor serial tras cada iteración del loop para facilitar la lectura
   delay(20);                                                                                       // Se añade un delay de muestreo para evitar rebotes u otros problemas
+}
+
+// Funcion para activar o desactivar desde 'ENABLE_DEBUG' el monitor serial para debugging ===================================================================
+void debug_code(){
+#if ENABLE_DEBUG == 1                                                                              // #if...#endif para optimizar la compilación del programa
+  Serial.begin(9600);
+#endif
 }
 
 // Función para el control sigue líneas ======================================================================================================================
@@ -129,18 +161,21 @@ void controlSiguelineas(){
 
   // Código para girar a la izquierda si el sensor derecho detecta la línea negra ----------------------------------------------------------------------------
   else if((digitalRead(pinIRDerecho) == 1) && (digitalRead(pinIRIzquierdo) == 0)){
+    Serial.println("¡Línea detectada por la derecha, girando a la izquierda...!");
     leftServo.write(135);
     rightServo.write(135);
   }
 
   // Código para girar a la derecha si el sensor izquierdo detecta la línea negra ----------------------------------------------------------------------------
   else if((digitalRead(pinIRDerecho) == 0) && (digitalRead(pinIRIzquierdo) == 1)){
+    Serial.println("¡Línea detectada por la izquierda, girando a la derecha...!");
     leftServo.write(45);
     rightServo.write(45);
   }
 
   // Código para detenerse si ambos sensores detectan la línea negra -----------------------------------------------------------------------------------------
   else{
+    Serial.println("¡Línea detectada delante, fin del circuito!");
     leftServo.write(90);
     rightServo.write(90);
   }  
@@ -166,6 +201,7 @@ void precolision(uint8_t pinFoto, int offSet){                                  
   int distancia = map(valorSensor, sensorLow, sensorHigh, 0, 100);                                 // Mapeamos que los valores del rango de luminosidad de la resistencia se guarden en una variable escalada a un rango de 0 a 100
 
   if(distancia <= 20){                                                                             // Si la luz es menor a un 20%
+    Serial.println("¡Obstáculo detectado! Maniobra de pre-colision por piloto automático...");
     digitalWrite(ledPin, HIGH);                                                                    // Luz que indica el bloqueo de seguridad del sistema
     leftServo.write(90 - offSet);                                                                  // Movemos ambos servos hacia adelante durante el bloqueo
     rightServo.write(90 + offSet);
@@ -243,7 +279,7 @@ void sonidoBocina(){
 }
 
 // Función de control ========================================================================================================================================
-void controlManual() {
+void controlManual(){
   // Leemos los valores analógicos de los dos ejes del joystick ----------------------------------------------------------------------------------------------
   int joyXValue = analogRead(A0);
   int joyYValue = analogRead(A1);
@@ -257,7 +293,7 @@ void controlManual() {
   rightServo.write(90 + servoYPosition - servoXPosition);                                          // 90 - 0 - 45 = 45 -> Hacia atrás PORQUE ESTÁ PUESTO "ESPEJO" RESPECTO DEL OTRO EN EL ROBOT
 }
 
-/* ***********************************************************************************************************************************************************
+/* ===========================================================================================================================================================
 
 | -------------------------------------------------------------------------------------------------------- |
 |                                           Tabla de movimientos                                           |
@@ -270,7 +306,6 @@ void controlManual() {
 |   511     |   1023    |       0        |       45       |       45        |        45        |  DERECHA  |
 | --------- | --------- | -------------- | -------------- | --------------- | ---------------- | --------- |
 
-Teniendo en cuenta que el punto neutro es ambos a 90, ambos a 45 no significa moverse hacia adelante y, ambos a 135, tampoco hacia atrás. Por el contrario,
+Teniendo en cuenta que el punto neutro es ambos a 90, ambos a 45 no significa moverse hacia adelante y, ambos a 135, tampoco hacia atrás. Por elcontrario,
 estos dos casos representarían, respectivamente, el giro a derechas y el giro a izquierdas.
-El hecho de que, por ejemplo, hacia adelante sea LEFT a 45 y RIGHT a 135 es porque los motores están cambiados de sentido cuando se montan en el chasis.
-*********************************************************************************************************************************************************** */
+El hecho de que, por ejemplo, hacia adelante sea LEFT a 45 y RIGHT a 135 es porque los motores están cambiados de sentido cuando se montan en el chasis */
