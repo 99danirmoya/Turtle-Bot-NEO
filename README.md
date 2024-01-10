@@ -1,3 +1,5 @@
+![Static Badge](https://img.shields.io/badge/stability-v1.0-3314333)
+
 # <p align="center"> Turtle-Bot NEO </p>
 
 <div align="center">
@@ -75,7 +77,7 @@ ___
 </div>
 
 <div align="center">
-  <img src="https://github.com/99danirmoya/turtle-bot-neo/blob/main/pics/photo_5809662950196232262_y.jpg" width="750"  style="margin: 10px;"/>
+  <img src="https://github.com/99danirmoya/turtle-bot-neo/blob/main/pics/IMG_20240110_163731.jpg" width="750"  style="margin: 10px;"/>
 
   <em>Muestra de montaje y cableado</em>
 </div>
