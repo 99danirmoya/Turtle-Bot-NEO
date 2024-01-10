@@ -8,20 +8,9 @@ _Hecho con_
 
 [![made-in-ArduinoIDE](https://img.shields.io/badge/Arduino_IDE-00979D?style=for-the-badge&logo=arduino&logoColor=white)](https://www.arduino.cc/) [![programmed-for-LilyGOLoRa32](https://img.shields.io/badge/espressif-E7352C?style=for-the-badge&logo=espressif&logoColor=white)](https://www.lilygo.cc/)
 
+## Robot con dos ruedas controladas por dos servos de rotación continua que cuenta con dos modos de funcionamiento: manual con joystick y sigue-líneas.
+
 </div>
-
-___
-
-<p align="justify"> Robot con dos ruedas controladas por dos servos de rotación continua que cuenta con dos modos de funcionamiento: manual con joystick y sigue-líneas. Hacer clic en el botón morado de la imagen para acceder a la simulación de TinkerCAD. </p>
-
-<div align="center">
-  <img src="https://github.com/99danirmoya/turtle-bot-neo/blob/main/pics/t725.png" width="750"  style="margin: 10px;"/>
-  
-  <em>Circuito del Turtle-Bot NEO</em>
-
-  [![Static Badge](https://img.shields.io/badge/TINKER_THIS!-8A2BE2?logo=autodesk)](https://www.tinkercad.com/things/kZLjRCSkkIt-turtle-bot-neo)
-</div>
-<br/>
 
 <div align="justify">
 
@@ -60,6 +49,28 @@ ___
 | Jumpers | Los que hagan falta |
 
 </div>
+
+<div align="justify">
+
+___
+
+## Diagrama de conexiones
+
+A continuación, se muestra el diagrama de conexiones del robot. Hacer clic en el botón morado de la imagen para acceder a la simulación de TinkerCAD.
+
+</div>
+
+<div align="center">
+  <img src="https://github.com/99danirmoya/turtle-bot-neo/blob/main/pics/t725.png" width="750"  style="margin: 10px;"/>
+  
+  <em>Circuito del Turtle-Bot NEO</em>
+
+  [![Static Badge](https://img.shields.io/badge/TINKER_THIS!-8A2BE2?logo=autodesk)](https://www.tinkercad.com/things/kZLjRCSkkIt-turtle-bot-neo)
+</div>
+<br/>
+
+> [!CAUTION]
+> Debido al número limitado de I/O de TinkerCAD, algunos elementos han sido sustituidos por las alternativas más parecidas, como el joystick por un botón y dos potenciómetros, y los sensores de infrarrojos, por sensores de proximidad (PIR)
 
 <div align="justify">
 
